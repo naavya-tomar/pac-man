@@ -1,0 +1,1 @@
+A simple implementation of pac-man in JavaScript.
