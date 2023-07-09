@@ -1,9 +1,37 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title> meow </title>
+    <title>Hello World</title>
+    <script src="//cdn.jsdelivr.net/npm/phaser@3.60.0/dist/phaser.min.js"></script>
 </head>
+
 <body>
-    <h1> hello meow meow </h1>
+<script>
+    function preload() {
+    }
+
+    function create() {
+        var text = 
+            this.add.text 
+                (400, 300, 'Hello World',
+                 { fontSize: '32px',
+                   fill: '#FFFFFF' 
+                 }
+                );
+        text.setOrigin(0.5);
+    }
+
+    var config = {
+        type: Phaser.AUTO,
+        width: 800,
+        height: 600,
+        scene: {
+            preload: preload,
+            create: create
+        }
+    };
+
+    var game = new Phaser.Game(config);
+</script>
 </body>
 </html>
