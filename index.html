@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Hello World</title>
+    <title>Pac-Man</title>
     <script src="//cdn.jsdelivr.net/npm/phaser@3.60.0/dist/phaser.min.js"></script>
 </head>
 
@@ -10,15 +10,23 @@
     function preload() {
     }
 
+    var circle;
+
     function create() {
-        var text = 
-            this.add.text 
-                (400, 300, 'Hello World',
-                 { fontSize: '32px',
-                   fill: '#FFFFFF' 
-                 }
-                );
-        text.setOrigin(0.5);
+        var rect = this.add.graphics();
+
+        rect.fillStyle(0x0F00FF, 1);
+        rect.fillRect(100, 200, 600, 50);
+
+        rect.lineStyle(5, 0x12FFFF, 1);
+        rect.strokeRect(100, 200, 600, 50);
+
+        circle = this.add.graphics();
+        circle.strokeCircle(400, 225, 19);
+    }
+
+    function update() {
+        circle.x += 2;
     }
 
     var config = {
@@ -27,7 +35,8 @@
         height: 600,
         scene: {
             preload: preload,
-            create: create
+            create: create,
+            update: update
         }
     };
 
