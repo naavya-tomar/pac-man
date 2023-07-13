@@ -11,6 +11,11 @@
     }
 
     var circle;
+    var cursors;
+    var pellets;
+    var pelletRadius = 7;
+    var gap = 3;
+    var span = pelletRadius*2 + gap;
 
     function create() {
         var rect = this.add.graphics();
@@ -21,12 +26,42 @@
         rect.lineStyle(5, 0x12FFFF, 1);
         rect.strokeRect(100, 200, 600, 50);
 
+        //pellets = this.add.group(); 
+        var width = 600;
+        var lastIndex = Math.round(width/span - 1);
+        var pos = 100;
+        pellets = new Array(lastIndex + 1);
+
+        for (var i = 0; i <= lastIndex; i++)  { 
+            var c = this.add.graphics();
+            c.fillStyle(0x0, 1);
+            pos += span;
+            c.fillCircle(pos, 225, pelletRadius);
+            c.strokeCircle(pos, 225, pelletRadius);
+            pellets[i] = c;
+        }
+
         circle = this.add.graphics();
         circle.strokeCircle(400, 225, 19);
-    }
+        circle.fillStyle(0x00FF00, 1);
+        circle.fillCircle(400, 225, 19);
 
+        cursors = this.input.keyboard.createCursorKeys();
+    }
+    function eatPellet(x) {
+        var pos = x + 300;
+        var iL = Math.round(pos/span);
+        pellets[iL].destroy();
+    }
     function update() {
-        circle.x += 2;
+        if (cursors.right.isDown && circle.x <= 298) {
+            circle.x += 2;
+            eatPellet(circle.x); 
+        }
+        if (cursors.left.isDown && circle.x >= -298) {
+            circle.x -= 2;
+            eatPellet(circle.x);
+        }
     }
 
     var config = {
